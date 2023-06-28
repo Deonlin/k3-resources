@@ -31,12 +31,16 @@
 /operations using lists ==========================================
 
   2*1 2 3       /numeric list with space separators
+                / \* verb Dyad: times
 2 4 6
   1 2 3%2 4 6   /list to list operations, same size
+                / \% verb Dyad: divide
 0.5 0.5 0.5
   #1 2 3        /size of vector
+                / \# verb monad: count
 3
   3#1           /generate sequence of same numbers
+                / \# verb dyad: take/reshape
 1 1 1
   5#1 2         /or from a list of given elements
 1 2 1 2 1
@@ -44,12 +48,16 @@
 / list elements ===================================================
 
   *1 2 3        /first element
+                / \* verb monad: first
 1
   *|1 2 3       /last element
+                / |1 2 3, \| verb monad: reverse 
+                / *3 2 1
 3
   1_1 2 3       /rest without first element
+                / \_ verb dyad: drop/cut so drop 1 from 1 2 3
 2 3
-  -1_1 2 3      /rest without last element
+  -1_1 2 3      /rest without last element, drop -1 from 1 2 3
 1 2
   |1 2 3        /reverse
 3 2 1
