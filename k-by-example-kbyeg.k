@@ -7,20 +7,25 @@
 /simple arithmetic ===============================================
 
   2+2           /comment is ' /': left of /: whitespace or nothing
+                / \+ is verb, Dyad means plus
 4
   2-3           /negative numbers
+                / \- is verb, Dyad means minus
 -1
   2*3+4         /no precedence, right to left
+                / \* is verb, Dyad means times
 14
   (2*3)+4       /parentheses changes order
 10
   3%4           /division represented by '%'
+                / % is verb, Dyad means divide
 0.75
-  _sqr 4        /square
+  _sqr 4        /square, reserved function
 16.0
-  _sqrt 4       /square root
+  _sqrt 4       /square root, reserved function
 2.0
   %4            /1/x
+                / \% is verb, Monad means reciprocal倒數
 0.25
 
 /operations using lists ==========================================
@@ -95,6 +100,8 @@
 2 16.0
   _sqr+/2 3             /(a +b)^2
 25.0
+  _sqr+\2 3             / a^2 (a+b)^2
+4 25.0
   +/_sqr 2 3            /a^2 + b^2
 13.0
   {+/(_sqr x),2*/x}2 3  /(a + b)^2 = a^2 + b^2 + 2ab
