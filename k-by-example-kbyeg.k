@@ -52,12 +52,12 @@
 1
   *|1 2 3       /last element
                 / |1 2 3, \| verb monad: reverse 
-                / *3 2 1
+                / *(3;2;1)
 3
   1_1 2 3       /rest without first element
-                / \_ verb dyad: drop/cut so drop 1 from 1 2 3
+                / \_ verb dyad: drop/cut so drop 1 from (1;2;3)
 2 3
-  -1_1 2 3      /rest without last element, drop -1 from 1 2 3
+  -1_1 2 3      /rest without last element, drop -1 from (1;2;3)
 1 2
   |1 2 3        /reverse
 3 2 1
@@ -65,31 +65,57 @@
 / indexing and sorting ============================================
 
   1 2 3@1       /indexing is zero-based
+                / \@ verb dyad: at
 2
   1 2 3@1 0     /index can be vector too
 2 1
   !3            /generate zero-based sequence
+                / \! verb monad: enumerate
 0 1 2
   2 4 6?4       /index of given element(s)
+                / \? verb dyad: find/invert
 1
-  <2 1 6        /indices of sorted order
+  <2 1 6        /indices of sorted order ASC
+                / \< verb monad: upgrade
 1 0 2
+  >2 1 6        /indices of sorted order DESC
+                / \< verb monad: downgrade
+2 0 1
   {x@<x}2 1 6   /sort vector
 1 2 6
 
 / list aggregation ================================================
 
   1 2 3,10 20     /join vectors
+                  / \, verb dyad: join
 1 2 3 10 20
-  1+2+3           /sum of elements
+  1+2+3           /sum of elements 
+                  / \+ dyad: plus
 6
   +/1 2 3         /insert '+' between elements
+                  / +/ adverb m/ CONVERGE
 6
   +\1 2 3         /running sum of elements
+                  / +\ adverb m\ CONVERGE
+1 3 6        
+  1,(1+2),(1+2+3) /same as this or (1;1+2;(1+2)+3)
 1 3 6
-  1,(1+2),(1+2+3) /same as this
-1 3 6
+  1+\2 3          / 1 plus SCAN (2;3)
+                  / +\ is adverb d\ SCAN
+1 3 6              
+  1+/2 3          / 1 plus OVER (2;3)
+6
+  +\2 3           / but this is (2;2+3)
+2 5
+  1 2+\:3 4       / is the same as (1+\3 4;2+\3 4)
+(1 4 8            / : and ' are always dyadic
+ 2 5 9)           / \ is optionally dyadic, where the first argument to the monadic 
+                  / becomes the left argument to the dyadic
+                  / If the monadic is 1 2 3 the first value is 1. So that becomes the left 
+                  / argument to the dyadic and the remaining 2 3 becomes the right argument
+                  / \: each left means for each argument on the left apply the entire value on the right.
   +':1 2 3 4 5    /sum running pairs
+                  
 3 5 7 9
   +/'{(2*!-_-.5*#x)_ x}1 2 3 4 5 /non-intersecting pairs
 3 7 5
