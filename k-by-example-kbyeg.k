@@ -12,7 +12,7 @@
   2-3           /negative numbers
                 / \- is verb, Dyad means minus
 -1
-  2*3+4         /no precedence, right to left
+  2*3+4         /the order of evaluation is strictly right to left
                 / \* is verb, Dyad means times
 14
   (2*3)+4       /parentheses changes order
